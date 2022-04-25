@@ -14,9 +14,12 @@ namespace CoreDemo.Controllers
         public IActionResult Index()
         {
             Context c = new Context();
+            var username = User.Identity.Name;
+            var usermail = c.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
+            var writerId = c.Writers.Where(x => x.Email == usermail).Select(y => y.WriterId).FirstOrDefault();
 
             ViewBag.v1 = c.Blogs.Count().ToString();
-            ViewBag.v2 = c.Blogs.Where(x=>x.WriterId==2).Count();
+            ViewBag.v2 = c.Blogs.Where(x=>x.WriterId==writerId).Count();
             ViewBag.v3 = c.Categories.Count().ToString();
             return View();
         }

@@ -37,8 +37,9 @@ namespace CoreDemo.Controllers
         public IActionResult BlogListByWriter()
         {
 
-            var userMail = User.Identity.Name;
-            var writerId = c.Writers.Where(x => x.Email == userMail).Select(y => y.WriterId).FirstOrDefault();
+            var username = User.Identity.Name;
+            var usermail = c.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
+            var writerId = c.Writers.Where(x => x.Email == usermail).Select(y => y.WriterId).FirstOrDefault();
             var values = bm.GetListWithCategoryByWriterBm(writerId);
             return View(values);
         }
@@ -61,9 +62,10 @@ namespace CoreDemo.Controllers
         [HttpPost]
         public IActionResult BlogAdd(Blog blog)
         {
-         
-            var userMail = User.Identity.Name;
-            var writerId = c.Writers.Where(x => x.Email == userMail).Select(y => y.WriterId).FirstOrDefault();
+            var username = User.Identity.Name;
+            var usermail = c.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
+            var writerId = c.Writers.Where(x => x.Email == usermail).Select(y => y.WriterId).FirstOrDefault();
+
             BlogValidator bv = new BlogValidator();
             ValidationResult results = bv.Validate(blog);
             if (results.IsValid)
@@ -115,8 +117,9 @@ namespace CoreDemo.Controllers
         [HttpPost]
         public IActionResult EditBlog(Blog blog)
         {
-            var userMail = User.Identity.Name;
-            var writerId = c.Writers.Where(x => x.Email == userMail).Select(y => y.WriterId).FirstOrDefault();
+            var username = User.Identity.Name;
+            var usermail = c.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
+            var writerId = c.Writers.Where(x => x.Email == usermail).Select(y => y.WriterId).FirstOrDefault();
             blog.WriterId = writerId;
             blog.CreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
             bm.TUpdate(blog);

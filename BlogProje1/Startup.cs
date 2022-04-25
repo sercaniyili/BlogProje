@@ -81,7 +81,7 @@ namespace BlogProje1
             {
                 endpoints.MapControllerRoute(
                     name: "areas",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{area=exists}/{controller=Home}/{action=Index}/{id?}");
                 //{area=exists}/
 
                 endpoints.MapControllerRoute(
